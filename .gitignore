@@ -1,0 +1,7 @@
+target/
+logs/
+libs/
+.idea
+*.iml
+build/
+*.log
