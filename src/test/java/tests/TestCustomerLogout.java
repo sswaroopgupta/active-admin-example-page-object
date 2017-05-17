@@ -31,7 +31,7 @@ public class TestCustomerLogout {
         HomePage homePage = new HomePage(driver)
                 .signUp()
                 .registerCustomerWith(customer, "jane.doe@example.com", "password")
-                .LogOut();
+                .logOut();
         assertTrue(homePage.hasYouHaveBeenLoggedOut());
 
     }

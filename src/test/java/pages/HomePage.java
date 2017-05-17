@@ -6,26 +6,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import pages.components.HeaderComponent;
 
 import java.util.List;
 
 // Uses recommendations from https://github.com/SeleniumHQ/selenium/wiki/PageObjects
 public class HomePage {
     private final WebDriver webDriver;
-    @FindBy(how = How.LINK_TEXT, linkText = "Sign up")
-    private WebElement signup;
-
-    @FindBy(how = How.LINK_TEXT, linkText = "Log in")
-    private WebElement login;
-
-    @FindBy(how = How.LINK_TEXT, linkText = "Log out")
-    private WebElement logout;
-
-    @FindBy(how = How.LINK_TEXT, linkText = "Administration interface")
-    private WebElement administratorInterface;
-
-    @FindBy(how = How.XPATH, xpath = "//a[text()='Administration interface']/ancestor::div")
-    private WebElement authenticationBanner;
+    private HeaderComponent header;
 
     @FindBy(how = How.CLASS_NAME, className = "product")
     private List<WebElement> products;
@@ -42,28 +30,28 @@ public class HomePage {
     public HomePage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
+        header = new HeaderComponent(webDriver);
     }
 
     public SignUpPage signUp() {
-        signup.click();
-        return new SignUpPage(webDriver);
+        return header.signUp();
     }
 
-    public HomePage LogOut() {
-        logout.click();
+    public HomePage logOut() {
+        header.logOut();
         return this;
     }
 
     public String getGreeting() {
-        return authenticationBanner.getText();
+        return header.getGreeting();
     }
 
     public boolean IsLogoutDisplayed() {
-        return logout.isDisplayed();
+        return header.IsLogoutDisplayed();
     }
 
     public boolean IsLoginDisplayed() {
-        return login.isDisplayed();
+        return header.IsLoginDisplayed();
     }
 
     public int numberOfAvailableProducts() {

@@ -1,10 +1,6 @@
 # Selenium example in Java
 
-[![Build Status](https://travis-ci.org/getgauge/gauge-example-java.svg?branch=master)](https://travis-ci.org/getgauge/gauge-example-java)
-[![HTML report](https://img.shields.io/badge/report-html-green.svg)](http://gauge-example-reports.herokuapp.com/java)
-[![Console report](https://img.shields.io/badge/report-console-blue.svg)](http://gauge-example-reports.herokuapp.com/java/console)
-
-This is an example project for doing web automation testing with Page Objects.
+This is a project created for discussing some problems and recommended options described in the blog(Work in progress)
 This is using [Selenium](https://en.wikipedia.org/wiki/Selenium_(software)).
 This project tests some of the functionalities of the [active admin demo](https://github.com/getgauge/activeadmin-demo) app. This app is hosted as a Java WAR (with embedded Jetty).
 
