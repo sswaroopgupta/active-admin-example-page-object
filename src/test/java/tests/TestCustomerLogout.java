@@ -4,12 +4,16 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import pages.HomePage;
 import utils.driver.DriverFactory;
 
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -32,7 +36,9 @@ public class TestCustomerLogout {
                 .signUp()
                 .registerCustomerWith(customer, "jane.doe@example.com", "password")
                 .logOut();
-        assertTrue(homePage.hasYouHaveBeenLoggedOut());
+
+        assertThat( homePage.getMessages(), hasItem("You have been logged out.")
+        );
 
     }
 

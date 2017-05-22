@@ -8,6 +8,7 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import pages.components.HeaderComponent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Uses recommendations from https://github.com/SeleniumHQ/selenium/wiki/PageObjects
@@ -18,14 +19,8 @@ public class HomePage {
     @FindBy(how = How.CLASS_NAME, className = "product")
     private List<WebElement> products;
 
-    @FindBy(how = How.XPATH, xpath = "//div[@id = 'flash_notice' and text() = 'Thank you for signing up! You are now logged in.']")
-    private WebElement thankYouForSigningUp;
-
-    @FindBy(how = How.XPATH, xpath = "//div[@id = 'flash_notice' and text() = 'Thank you for your purchase! We will ship it shortly!']")
-    private WebElement thankYouMessageForPurchase;
-
-    @FindBy(how = How.XPATH, xpath = "//div[@id = 'flash_notice' and text() = 'You have been logged out.']")
-    private WebElement youHaveBeenLoggedOut;
+    @FindBy(how = How.XPATH, xpath = "//div[@id = 'flash_notice']")
+    private List<WebElement> flashNotices;
 
     public HomePage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -46,12 +41,9 @@ public class HomePage {
         return header.getGreeting();
     }
 
-    public boolean IsLogoutDisplayed() {
-        return header.IsLogoutDisplayed();
-    }
-
-    public boolean IsLoginDisplayed() {
-        return header.IsLoginDisplayed();
+    public HomePage waitForOptionToBeAvailable(String option) {
+        header.waitForOptionToBeAvailable(option);
+        return this;
     }
 
     public int numberOfAvailableProducts() {
@@ -63,15 +55,12 @@ public class HomePage {
         return new ProductPage(webDriver);
     }
 
-    public boolean hasThankYouMessageForSigningup() {
-        return thankYouForSigningUp.isDisplayed();
+    public List<String> getMessages(){
+        List<String> messages = new ArrayList<>();
+        for(WebElement flashNotice:flashNotices){
+            messages.add(flashNotice.getText());
+        }
+        return messages;
     }
 
-    public boolean hasYouHaveBeenLoggedOut() {
-        return youHaveBeenLoggedOut.isDisplayed();
-    }
-
-    public boolean hasThankYouMessageForPurchase() {
-        return thankYouMessageForPurchase.isDisplayed();
-    }
 }

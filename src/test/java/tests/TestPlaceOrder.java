@@ -1,13 +1,22 @@
 package tests;
 
+import org.hamcrest.Matcher;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import pages.CartPage;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import pages.HomePage;
 import utils.driver.DriverFactory;
 
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.containsString;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.core.Is.is;
@@ -34,10 +43,11 @@ public class TestPlaceOrder {
         assertTrue(homePage.getGreeting().contains("Welcome " + customer + "! Not you?"));
         assertThat(homePage.numberOfAvailableProducts(), is(not(0)));
 
-        assertTrue(homePage.selectProduct("Beginning Ruby: From Novice to Professional")
+        assertThat( homePage.selectProduct("Beginning Ruby: From Novice to Professional")
                 .addToCart()
                 .checkoutNow()
-                .hasThankYouMessageForPurchase());
+                .getMessages(), hasItem("Thank you for your purchase! We will ship it shortly!")
+        );
     }
 
     @AfterClass

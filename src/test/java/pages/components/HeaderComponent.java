@@ -1,10 +1,13 @@
 package pages.components;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
 import pages.SignUpPage;
 
@@ -12,9 +15,6 @@ public class HeaderComponent {
     private final WebDriver webDriver;
     @FindBy(how = How.LINK_TEXT, linkText = "Sign up")
     private WebElement signup;
-
-    @FindBy(how = How.LINK_TEXT, linkText = "Log in")
-    private WebElement login;
 
     @FindBy(how = How.LINK_TEXT, linkText = "Log out")
     private WebElement logout;
@@ -43,11 +43,8 @@ public class HeaderComponent {
         return authenticationBanner.getText();
     }
 
-    public boolean IsLogoutDisplayed() {
-        return logout.isDisplayed();
-    }
-
-    public boolean IsLoginDisplayed() {
-        return login.isDisplayed();
+    public void waitForOptionToBeAvailable(String option) {
+        WebDriverWait wait = new WebDriverWait(this.webDriver, 300);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(option)));
     }
 }
