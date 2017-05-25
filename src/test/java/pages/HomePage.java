@@ -28,8 +28,12 @@ public class HomePage {
         header = new HeaderComponent(webDriver);
     }
 
-    public SignUpPage signUp() {
+    public SignUpPage navigateToSignUpPage() {
         return header.signUp();
+    }
+
+    public LoginPage navigateToLoginPage() {
+        return header.logIn();
     }
 
     public HomePage logOut() {

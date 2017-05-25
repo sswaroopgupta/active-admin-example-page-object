@@ -8,6 +8,7 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.LoginPage;
 import pages.SignUpPage;
 
 public class HeaderComponent {
@@ -17,6 +18,9 @@ public class HeaderComponent {
 
     @FindBy(how = How.LINK_TEXT, linkText = "Log out")
     private WebElement logout;
+
+    @FindBy(how = How.LINK_TEXT, linkText = "Log in")
+    private WebElement login;
 
     @FindBy(how = How.LINK_TEXT, linkText = "Administration interface")
     private WebElement administratorInterface;
@@ -45,5 +49,10 @@ public class HeaderComponent {
     public void waitForOptionToBeAvailable(String option) {
         WebDriverWait wait = new WebDriverWait(this.webDriver, 300);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(option)));
+    }
+
+    public LoginPage logIn() {
+        login.click();
+        return new LoginPage(webDriver);
     }
 }

@@ -27,8 +27,10 @@ public class TestCustomerLogout {
         String customer = "Jane";
 
         HomePage homePage = new HomePage(driver)
-                .signUp()
+                .navigateToSignUpPage()
                 .registerCustomerWith(customer, "jane.doe@example.com", "password")
+
+                .waitForOptionToBeAvailable("Log out")
                 .logOut();
 
         assertThat( homePage.getMessages(), hasItem("You have been logged out.")

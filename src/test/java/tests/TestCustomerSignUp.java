@@ -29,12 +29,11 @@ public class TestCustomerSignUp {
         driver.get("http://localhost:8080");
         String customer = "John";
 
-        HomePage homePage = new HomePage(driver).signUp()
-                .registerCustomerWith(customer, "john.doe@example.com", "password")
-                .waitForOptionToBeAvailable("Log out");
+        HomePage homePage = new HomePage(driver).navigateToSignUpPage()
+                .registerCustomerWith(customer, "john.doe@example.com", "password");
 
         assertTrue(homePage.getGreeting().contains("Welcome " + customer + "! Not you?"));
-        assertThat( homePage.getMessages(), hasItem("Thank you for signing up! You are now logged in."));
+        assertThat(homePage.getMessages(), hasItem("Thank you for signing up! You are now logged in."));
         assertThat(homePage.numberOfAvailableProducts(), is(not(0)));
 
     }
